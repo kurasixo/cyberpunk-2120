@@ -1,27 +1,99 @@
 package cyberpunk.personage;
 
-public class Personage {
+import cyberpunk.abilities.*;
+import cyberpunk.skills.BasicSkill;
+import cyberpunk.skills.BasicSkills;
+import cyberpunk.skills.Skills;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+interface AbstractPersonage {
+  float getAbilityPoints(Ability ability);
+}
+
+public class Personage implements AbstractPersonage {
   String name;
-  Stats stats;
   CharClass charClass;
-  Ability[] abilities;
+  HashMap<BasicSkill, Float> skills;
+  HashMap<Ability, Float> abilities;
 
   public Personage(
     String name,
-    Stats stats,
     CharClass charClass,
+    float uniqueAbilityPoints,
+
+    float[] skillPoints,
+    float[] abilitiesSkillPoints,
     Ability[] abilities
   ) {
     this.name = name;
-    this.stats = stats;
     this.charClass = charClass;
-    this.abilities = abilities;
 
-    System.out.println("create char");
+    this.skills = Skills.putPointsToSkills(skillPoints);
+    this.abilities = Abilities.putPointsToAbilities(abilities, abilitiesSkillPoints);
+
+    uniqueToSimpleAbilities(
+      charClass.getUniqueAbility(),
+      uniqueAbilityPoints
+    );
+  }
+
+  private void uniqueToSimpleAbilities(
+    UniqueAbility uniqueAbility,
+    float uniqueAbilityPoints
+  ) {
+    Ability uniqueAbilityAsSimple = new Ability(
+      uniqueAbility.getName(),
+      uniqueAbility.getDescription(),
+      BasicSkills.NullSkill
+    );
+
+    this.abilities.put(uniqueAbilityAsSimple, uniqueAbilityPoints);
+  }
+
+  @Override
+  public float getAbilityPoints(Ability ability) {
+    float basicSkillPoints = this.skills.get(ability.getBasicSkill());
+    if (this.abilities.containsKey(ability)) {
+      return this.abilities.get(ability) + basicSkillPoints;
+    }
+
+    return basicSkillPoints;
+  }
+
+  private static <K, V>String getStringByHashMap(String stringStart, HashMap<K, V> hashMap) {
+    StringBuilder resultString = new StringBuilder();
+
+    resultString.append(stringStart);
+
+    for (K key : hashMap.keySet()) {
+      resultString
+        .append("\n")
+        .append(key.toString())
+        .append(": ")
+        .append(hashMap.get(key));
+    }
+
+    return resultString.toString();
   }
 
   @Override
   public String toString() {
-    return "Hi, I am Satsugai";
+    String skillsString = getStringByHashMap("Skills: ", this.skills);
+    String abilitiesString = getStringByHashMap("Abilities: ", this.abilities);
+
+    return
+      "Name: " +
+        this.name +
+        "\n" +
+        this.charClass.toString() +
+        "\n" +
+        "\n" +
+        skillsString +
+        "\n" +
+        "\n" +
+        abilitiesString;
   }
 }

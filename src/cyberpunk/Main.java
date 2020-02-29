@@ -1,16 +1,26 @@
 package cyberpunk;
 
-import cyberpunk.personage.*;
+import cyberpunk.abilities.Ability;
+import cyberpunk.personage.Personage;
+import cyberpunk.personage.CharClasses;
+import cyberpunk.skills.BasicSkills;
 
 
 class App {
   public static void main(String[] args) {
-  String name = "Satsugai";
-    Ability soloUniqueAbility = new Ability("Combat Sense", "Combat Sense");
-    CharClass charClass = new CharClass("Solo", soloUniqueAbility);
-    Stats stats = new Stats(6, 9, 9, 9, 9, 9, 9, 3);
-    Ability[] abilities = new Ability[30];
-    Personage Satsugai = new Personage(name, stats, charClass, abilities);
+    String name = "Satsugai";
+    float[] skillPoints = {6, 9, 9, 9, 9, 9, 9, 3};
+    float[] abilitiesSkillPoints = {9};
+    Ability[] abilities = {new Ability("Rifle", "Rifle to shoot", BasicSkills.BasicReflex)};
+
+    Personage Satsugai = new Personage(
+      name,
+      CharClasses.soloClass,
+      9,
+      skillPoints,
+      abilitiesSkillPoints,
+      abilities
+    );
 
     System.out.println(Satsugai);
   }

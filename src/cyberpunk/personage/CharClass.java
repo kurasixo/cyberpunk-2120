@@ -1,14 +1,30 @@
 package cyberpunk.personage;
 
-public class CharClass {
+import cyberpunk.abilities.UniqueAbility;
+
+public final class CharClass {
   String className;
-  Ability uniqueAbility;
+  UniqueAbility uniqueAbility;
 
   public CharClass(
     String className,
-    Ability uniqueAbility
+    UniqueAbility uniqueAbility
   ) {
     this.className = className;
     this.uniqueAbility = uniqueAbility;
+  }
+
+  public UniqueAbility getUniqueAbility() {
+    return uniqueAbility;
+  }
+
+  @Override
+  public String toString() {
+    return
+      "Class: " +
+        this.className +
+        "\n" +
+        "Unique ability: " +
+        this.uniqueAbility.getName();
   }
 }
