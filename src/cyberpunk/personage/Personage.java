@@ -10,11 +10,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 interface AbstractPersonage {
-  float getAbilityPoints(Ability ability);
+  float getSkillPoints(Ability ability);
+  float getSkillPoints(BasicSkill basicSkill);
 }
 
 public class Personage implements AbstractPersonage {
   String name;
+  int healhPoints = 12;
   CharClass charClass;
   HashMap<BasicSkill, Float> skills;
   HashMap<Ability, Float> abilities;
@@ -54,13 +56,18 @@ public class Personage implements AbstractPersonage {
   }
 
   @Override
-  public float getAbilityPoints(Ability ability) {
+  public float getSkillPoints(Ability ability) {
     float basicSkillPoints = this.skills.get(ability.getBasicSkill());
     if (this.abilities.containsKey(ability)) {
       return this.abilities.get(ability) + basicSkillPoints;
     }
 
     return basicSkillPoints;
+  }
+
+  @Override
+  public float getSkillPoints(BasicSkill basicSkill) {
+    return this.skills.get(basicSkill);
   }
 
   private static <K, V>String getStringByHashMap(String stringStart, HashMap<K, V> hashMap) {

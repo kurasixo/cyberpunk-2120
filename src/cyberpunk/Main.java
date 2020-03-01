@@ -23,6 +23,8 @@ class App {
     );
 
     System.out.println(Satsugai);
+    System.out.println(Satsugai.getSkillPoints(BasicSkills.BasicIntellect));
+    System.out.println(Satsugai.getSkillPoints(abilities[0]));
   }
 }
 
