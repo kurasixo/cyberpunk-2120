@@ -1,13 +1,12 @@
 package cyberpunk.personage;
 
 import cyberpunk.abilities.*;
+import cyberpunk.inventory.Inventory;
 import cyberpunk.skills.BasicSkill;
 import cyberpunk.skills.BasicSkills;
 import cyberpunk.skills.Skills;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 interface AbstractPersonage {
   float getSkillPoints(Ability ability);
@@ -16,43 +15,59 @@ interface AbstractPersonage {
 
 public class Personage implements AbstractPersonage {
   String name;
-  int healhPoints = 12;
   CharClass charClass;
+
+  int healhPoints = 12;
+  boolean isInConsciousness = true;
+
   HashMap<BasicSkill, Float> skills;
   HashMap<Ability, Float> abilities;
+
+  Inventory inventory;
 
   public Personage(
     String name,
     CharClass charClass,
-    float uniqueAbilityPoints,
+    float uniqueAbilitySkillPoints,
 
     float[] skillPoints,
-    float[] abilitiesSkillPoints,
-    Ability[] abilities
+    float[] simpleAbilitiesSkillPoints,
+    Ability[] simpleAbilities
   ) {
     this.name = name;
     this.charClass = charClass;
 
     this.skills = Skills.putPointsToSkills(skillPoints);
-    this.abilities = Abilities.putPointsToAbilities(abilities, abilitiesSkillPoints);
+    this.abilities = this.mergeUniqueAndSimpleAbilities(
+      simpleAbilities,
+      simpleAbilitiesSkillPoints,
 
-    uniqueToSimpleAbilities(
       charClass.getUniqueAbility(),
-      uniqueAbilityPoints
+      uniqueAbilitySkillPoints
     );
+
+    this.inventory = new Inventory();
   }
 
-  private void uniqueToSimpleAbilities(
+  private HashMap<Ability, Float> mergeUniqueAndSimpleAbilities(
+    Ability[] simpleAbilities,
+    float[] simpleAbilitiesSkillPoints,
+
     UniqueAbility uniqueAbility,
-    float uniqueAbilityPoints
+    float uniqueAbilitySkillPoints
   ) {
+    HashMap<Ability, Float> abilities = new HashMap<>(
+      Abilities.putPointsToAbilities(simpleAbilities, simpleAbilitiesSkillPoints)
+    );
+
     Ability uniqueAbilityAsSimple = new Ability(
       uniqueAbility.getName(),
       uniqueAbility.getDescription(),
       BasicSkills.NullSkill
     );
 
-    this.abilities.put(uniqueAbilityAsSimple, uniqueAbilityPoints);
+    abilities.put(uniqueAbilityAsSimple, uniqueAbilitySkillPoints);
+    return abilities;
   }
 
   @Override
@@ -70,37 +85,7 @@ public class Personage implements AbstractPersonage {
     return this.skills.get(basicSkill);
   }
 
-  private static <K, V>String getStringByHashMap(String stringStart, HashMap<K, V> hashMap) {
-    StringBuilder resultString = new StringBuilder();
+  private void doDamage(float damage) {
 
-    resultString.append(stringStart);
-
-    for (K key : hashMap.keySet()) {
-      resultString
-        .append("\n")
-        .append(key.toString())
-        .append(": ")
-        .append(hashMap.get(key));
-    }
-
-    return resultString.toString();
-  }
-
-  @Override
-  public String toString() {
-    String skillsString = getStringByHashMap("Skills: ", this.skills);
-    String abilitiesString = getStringByHashMap("Abilities: ", this.abilities);
-
-    return
-      "Name: " +
-        this.name +
-        "\n" +
-        this.charClass.toString() +
-        "\n" +
-        "\n" +
-        skillsString +
-        "\n" +
-        "\n" +
-        abilitiesString;
   }
 }

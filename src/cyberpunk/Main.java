@@ -1,9 +1,14 @@
 package cyberpunk;
 
 import cyberpunk.abilities.Ability;
+import cyberpunk.inventory.Inventory;
+import cyberpunk.inventory.Item;
 import cyberpunk.personage.Personage;
 import cyberpunk.personage.CharClasses;
 import cyberpunk.skills.BasicSkills;
+
+import java.util.Arrays;
+import java.util.HashMap;
 
 
 class App {
@@ -11,7 +16,10 @@ class App {
     String name = "Satsugai";
     float[] skillPoints = {6, 9, 9, 9, 9, 9, 9, 3};
     float[] abilitiesSkillPoints = {9};
-    Ability[] abilities = {new Ability("Rifle", "Rifle to shoot", BasicSkills.BasicReflex)};
+
+    Ability[] abilities = {
+      new Ability("Rifle", "Rifle to shoot", BasicSkills.BasicReflex)
+    };
 
     Personage Satsugai = new Personage(
       name,
@@ -21,10 +29,6 @@ class App {
       abilitiesSkillPoints,
       abilities
     );
-
-    System.out.println(Satsugai);
-    System.out.println(Satsugai.getSkillPoints(BasicSkills.BasicIntellect));
-    System.out.println(Satsugai.getSkillPoints(abilities[0]));
   }
 }
 
