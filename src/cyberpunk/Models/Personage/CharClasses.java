@@ -1,6 +1,6 @@
-package cyberpunk.personage;
+package cyberpunk.Models.Personage;
 
-import cyberpunk.abilities.UniqueAbilities;
+import cyberpunk.Models.Abilities.UniqueAbilities;
 
 public class CharClasses {
   public static CharClass soloClass = new CharClass("Solo", UniqueAbilities.solo);

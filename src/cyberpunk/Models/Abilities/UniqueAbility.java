@@ -1,4 +1,4 @@
-package cyberpunk.abilities;
+package cyberpunk.Models.Abilities;
 
 public class UniqueAbility {
   String name;

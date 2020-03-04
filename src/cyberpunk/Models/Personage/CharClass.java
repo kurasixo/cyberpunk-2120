@@ -1,6 +1,6 @@
-package cyberpunk.personage;
+package cyberpunk.Models.Personage;
 
-import cyberpunk.abilities.UniqueAbility;
+import cyberpunk.Models.Abilities.UniqueAbility;
 
 public final class CharClass {
   String className;

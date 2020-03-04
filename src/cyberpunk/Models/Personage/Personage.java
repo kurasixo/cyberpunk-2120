@@ -1,24 +1,40 @@
-package cyberpunk.personage;
-
-import cyberpunk.abilities.*;
-import cyberpunk.inventory.Inventory;
-import cyberpunk.skills.BasicSkill;
-import cyberpunk.skills.BasicSkills;
-import cyberpunk.skills.Skills;
+package cyberpunk.Models.Personage;
 
 import java.util.HashMap;
 
+import cyberpunk.GameEngine.GameId;
+import cyberpunk.Models.Abilities.*;
+import cyberpunk.Models.Skills.Skills;
+import cyberpunk.Models.Skills.BasicSkill;
+import cyberpunk.Models.Skills.BasicSkills;
+import cyberpunk.Models.Inventory.Inventory;
+
+import cyberpunk.GameEngine.CyberpunkObject;
+
+
 interface AbstractPersonage {
+  int maxHealthPoints = 12;
+  int minHealthPoints = -28;
+
   float getSkillPoints(Ability ability);
   float getSkillPoints(BasicSkill basicSkill);
+
+  void getDamage(float damage);
 }
 
-public class Personage implements AbstractPersonage {
+// rename
+interface withDamage {
+  public void doDamage(float damage);
+}
+
+public class Personage extends CyberpunkObject implements AbstractPersonage, withDamage {
   String name;
   CharClass charClass;
 
-  int healhPoints = 12;
   boolean isInConsciousness = true;
+  int healhPoints = this.maxHealthPoints;
+
+  float money = 0;
 
   HashMap<BasicSkill, Float> skills;
   HashMap<Ability, Float> abilities;
@@ -34,6 +50,7 @@ public class Personage implements AbstractPersonage {
     float[] simpleAbilitiesSkillPoints,
     Ability[] simpleAbilities
   ) {
+    super(0,0, GameId.PLAYER);
     this.name = name;
     this.charClass = charClass;
 
@@ -85,7 +102,13 @@ public class Personage implements AbstractPersonage {
     return this.skills.get(basicSkill);
   }
 
-  private void doDamage(float damage) {
+  @Override
+  public void getDamage(float damage) {
+    // deal with counting damage
+  }
 
+  @Override
+  public void doDamage(float damage) {
+    // deal with counting damage
   }
 }

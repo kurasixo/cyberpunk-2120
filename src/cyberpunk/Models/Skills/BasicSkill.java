@@ -1,4 +1,4 @@
-package cyberpunk.skills;
+package cyberpunk.Models.Skills;
 
 public class BasicSkill {
   String name;

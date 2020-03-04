@@ -1,4 +1,4 @@
-package cyberpunk.inventory;
+package cyberpunk.Models.Inventory;
 
 public final class Item {
   ItemType itemType;

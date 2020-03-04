@@ -1,4 +1,4 @@
-package cyberpunk.abilities;
+package cyberpunk.Models.Abilities;
 
 public class UniqueAbilities {
   public static UniqueAbility solo = new UniqueAbility("Combat Sense", "Combat Sense");

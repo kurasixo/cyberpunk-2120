@@ -1,22 +1,21 @@
-package cyberpunk.skills;
+package cyberpunk.Models.Skills;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
-import static cyberpunk.skills.BasicSkills.*;
+import static cyberpunk.Models.Skills.BasicSkills.*;
 
 public final class Skills {
   private static BasicSkill[] basicSkillsArray = new BasicSkill[8];
 
   private static void fillBasicSkillArray() {
-    basicSkillsArray[0] = BasicIntellect;
-    basicSkillsArray[1] = BasicReflex;
-    basicSkillsArray[2] = BasicCool;
-    basicSkillsArray[3] = BasicAttractive;
-    basicSkillsArray[4] = BasicLuck;
-    basicSkillsArray[5] = BasicMove;
-    basicSkillsArray[6] = BasicBody;
-    basicSkillsArray[7] = BasicEmpathy;
+    basicSkillsArray[0] = Intellect;
+    basicSkillsArray[1] = Reflex;
+    basicSkillsArray[2] = Cool;
+    basicSkillsArray[3] = Attractive;
+    basicSkillsArray[4] = Luck;
+    basicSkillsArray[5] = Move;
+    basicSkillsArray[6] = Body;
+    basicSkillsArray[7] = Empathy;
   }
 
   public static HashMap<BasicSkill, Float> putPointsToSkills(float[] skillPoints) {

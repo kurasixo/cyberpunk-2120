@@ -1,6 +1,7 @@
-package cyberpunk.abilities;
+package cyberpunk.Models.Abilities;
 
-import cyberpunk.skills.BasicSkill;
+import cyberpunk.Models.Skills.BasicSkill;
+
 
 public class Ability extends UniqueAbility {
   BasicSkill basicSkill;

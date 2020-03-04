@@ -1,8 +1,7 @@
-package cyberpunk.abilities;
-
-import cyberpunk.skills.BasicSkills;
+package cyberpunk.Models.Abilities;
 
 import java.util.HashMap;
+
 
 public final class Abilities {
   public static HashMap<Ability, Float> putPointsToAbilities(
